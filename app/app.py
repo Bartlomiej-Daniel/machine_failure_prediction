@@ -21,6 +21,15 @@ st.sidebar.markdown("### Random Forest")
 st.sidebar.metric("Precision:", 0.9)
 st.sidebar.metric("Recall:", 0.63)
 
+st.sidebar.markdown("### Model description")
+st.sidebar.write("""
+Random Forest model trained on machine sensor data.
+Main factors:
+- Torque
+- Rotational speed
+- Tool wear
+""")
+
 air_temp = st.number_input("Air temperature [K]", value=300.0)
 process_temp = st.number_input("Process temperature [K]", value=310.0)
 rot_speed = st.number_input("Rotational speed [rpm]", value=1500.0)
