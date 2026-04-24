@@ -53,10 +53,10 @@ input_data = pd.DataFrame([{
 }])
 
 
-prediction = model.predict(input_data)[0]
-proba = model.predict_proba(input_data)[0][1]
-
 if st.button("Predict"):
+    prediction = model.predict(input_data)[0]
+    proba = model.predict_proba(input_data)[0][1]
+
     st.write(f"Failure probability: {proba:.2f}")
     
     if prediction == 1:
