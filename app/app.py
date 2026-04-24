@@ -58,7 +58,8 @@ if st.button("Predict"):
     proba = model.predict_proba(input_data)[0][1]
 
     st.write(f"Failure probability: {proba:.2f}")
-    
+    st.progress(int(proba * 100))
+
     if prediction == 1:
         st.error("Machine will FAIL")
     else:
