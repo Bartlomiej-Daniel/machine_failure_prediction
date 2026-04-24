@@ -9,6 +9,13 @@ sys.path.append(str(base_dir))
 
 model_path = base_dir / "models"
 
+@st.cache_resource
+def load_model():
+    return joblib.load(model_path / "rf_model.pkl")
+
+
+model = load_model()
+
 # Layout
 st.set_page_config(page_title="Machine Failure Prediction", layout="wide")
 
@@ -45,8 +52,6 @@ input_data = pd.DataFrame([{
     "Tool wear [min]": tool_wear
 }])
 
-
-model = joblib.load(model_path / "rf_model.pkl")
 
 prediction = model.predict(input_data)[0]
 proba = model.predict_proba(input_data)[0][1]
