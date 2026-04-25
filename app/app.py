@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 import joblib
 import pandas as pd
+import shap
+import matplotlib.pyplot as plt
 
 base_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(base_dir))
@@ -64,3 +66,25 @@ if st.button("Predict"):
         st.error("Machine will FAIL")
     else:
         st.success("Machine is OK")
+
+    # SHAP
+    model_rf = model.named_steps['model']
+    preprocessor = model.named_steps['preprocessing']
+
+    feature_names = preprocessor.get_feature_names_out()
+    clean_feature_names = [name.split("__")[-1] for name in feature_names]
+
+    input_transformed = preprocessor.transform(input_data)
+
+    input_transformed_df = pd.DataFrame(
+        input_transformed,
+        columns = clean_feature_names
+    )
+
+    explainer = shap.TreeExplainer(model_rf)
+    shap_values = explainer(input_transformed_df)
+
+    st.subheader("Feature impact (SHAP)")
+    fig, ax = plt.subplots()
+    shap.plots.bar(shap_values[:,:,1], show=False)
+    st.pyplot(fig)
