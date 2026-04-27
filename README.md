@@ -50,3 +50,11 @@ Trade-off analysis:
 - Imbalanced dataset (few failure cases)
 - Limited ability to generalize rare events
 - No time-series information (no machine history)
+
+## Tech Stack
+
+- Python
+- scikit-learn
+- pandas
+- SHAP
+- Streamlit
